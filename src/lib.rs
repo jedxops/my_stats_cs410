@@ -25,6 +25,9 @@ pub type StatFn = fn(&[f64]) -> Option<f64>;
 /// ```
 pub fn mean(nums: &[f64]) -> Option<f64> {
 //    unimplemented!("no mean yet")
+    if nums.len() == 0 {
+        return Some(0.0);
+    }
     let mut sum:f64 = 0.0;
     let len = nums.len() as f64;
     for i in 0..nums.len() {
@@ -99,24 +102,38 @@ pub fn median(nums: &[f64]) -> Option<f64> {
     nums.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
 //    unimplemented!("no median yet")
+    if nums.len() == 0 {
+        return None;
+    }
     // if the length of the input is even (hard case)
     if nums.len() % 2 == 0 {
-        for i in 0..nums.len() {
-            if (i + 1) == ((nums.len() -1) - i) {
-                return Some((nums[i] + nums[i+1])/2.0);
-            }
+        let j:usize = nums.len()/2;
+        if j < (nums.len() -1 -j) {
+            return Some(nums[j]);
+        }
+        else {
+            return Some(nums[j-1]);
         }
     }
     // if the length of the input is odd
     else {
         for i in 0..nums.len() {
             if (i) == (nums.len() - (i + 1)) {
-                return Some(nums[i]);
+                return Some(nums[i].abs());
             }
         }
     }
     None
 }
+
+/*    // if the length of the input is even (hard case)
+    if nums.len() % 2 == 0 {
+        for i in 0..nums.len() {
+            if (i + 1) == ((nums.len() -1) - i) {
+                return Some(((nums[i].abs() + nums[i+1].abs())/2.0));
+            }
+        }
+    }*/
 
 /// L2 norm (Euclidean norm) of input values. The L2
 /// norm of an empty list is 0.0.
