@@ -23,6 +23,7 @@ pub type StatFn = fn(&[f64]) -> Option<f64>;
 /// # use stats::*;
 /// assert_eq!(Some(0.0), mean(&[-1.0, 1.0]));
 /// ```
+
 pub fn mean(nums: &[f64]) -> Option<f64> {
 //    unimplemented!("no mean yet")
     if nums.len() == 0 {
@@ -50,6 +51,7 @@ pub fn mean(nums: &[f64]) -> Option<f64> {
 /// # use stats::*;
 /// assert_eq!(Some(0.0), stddev(&[1.0, 1.0]));
 /// ```
+
 pub fn stddev(nums: &[f64]) -> Option<f64> {
 //    unimplemented!("no stddev yet")
 
@@ -159,4 +161,25 @@ pub fn l2(nums: &[f64]) -> Option<f64> {
         sum = sum + v[i];
     }
     Some(sum.sqrt())
+}
+
+//unit test for the mean function
+#[test]
+pub fn test_neg() {
+    assert_eq!(Some(4.8), mean(&[-25.8, -18.8, -2.0, 0.0, 1.0, 1.8, 18.0, 25.8, 56.0, -8.0]))
+}
+//unit test for the stddev function
+#[test]
+pub fn test_large_list() {
+    assert_eq!(Some(50.02867767334641), stddev(&[-25.8, -18.8, -2.0, 0.0, 1.0, 1.8, 18.0, 25.8, 56.0, -8.0, -90.0, 90.9, 100.9]))
+}
+//unit test for the median function
+#[test]
+pub fn test_obscure() {
+    assert_eq!(Some(-8.0), median(&[18.0, -25.8, 56.0, -8.0, -90.0, 90.9, 25.8, 100.9, -56.0, -100.89, -100.9, 100.89]))
+}
+//unit test for the l2 function
+#[test]
+pub fn test_negative_vector() {
+    assert_eq!(Some(999.4768631639254), l2(&[-25.0, -18.0, -2.0, -999.0]))
 }
