@@ -25,16 +25,16 @@ pub type StatFn = fn(&[f64]) -> Option<f64>;
 /// ```
 
 pub fn mean(nums: &[f64]) -> Option<f64> {
-//    unimplemented!("no mean yet")
+    //    unimplemented!("no mean yet")
     if nums.len() == 0 {
         return Some(0.0);
     }
-    let mut sum:f64 = 0.0;
+    let mut sum: f64 = 0.0;
     let len = nums.len() as f64;
     for i in 0..nums.len() {
         sum = sum + nums[i];
     }
-    let mean:f64 = sum / len;
+    let mean: f64 = sum / len;
     Some(mean)
 }
 
@@ -53,16 +53,16 @@ pub fn mean(nums: &[f64]) -> Option<f64> {
 /// ```
 
 pub fn stddev(nums: &[f64]) -> Option<f64> {
-//    unimplemented!("no stddev yet")
+    //    unimplemented!("no stddev yet")
 
-// ***********************************
-// based off the formula from: https://www.thoughtco.com/calculate-a-sample-standard-deviation-3126345
-// Step 1 --Calculate mean
-// Step 2 --Store the result of the mean subtracted from each element of the input list and square the result
-// Step 3 --Add all of the previous steps `results` together
-// Step 4 --Divide the previous sum by the total number of items in the input list minus 1
-// Step 5 --Return the result in the form of an option f64 type
-// ***********************************
+    // ***********************************
+    // based off the formula from: https://www.thoughtco.com/calculate-a-sample-standard-deviation-3126345
+    // Step 1 --Calculate mean
+    // Step 2 --Store the result of the mean subtracted from each element of the input list and square the result
+    // Step 3 --Add all of the previous steps `results` together
+    // Step 4 --Divide the previous sum by the total number of items in the input list minus 1
+    // Step 5 --Return the result in the form of an option f64 type
+    // ***********************************
     if nums.len() == 0 {
         return None;
     }
@@ -71,15 +71,15 @@ pub fn stddev(nums: &[f64]) -> Option<f64> {
         Some(x) => x,
         None => 0.0,
     };
-    let mut xs:Vec<f64> = Vec::new();
-    let mut sum:f64 = 0.0;
+    let mut xs: Vec<f64> = Vec::new();
+    let mut sum: f64 = 0.0;
     for i in 0..nums.len() {
-      xs.push((nums[i] - mean)*(nums[i] - mean));  // subtracting the mean from every item in the provided list and squaring the result
+        xs.push((nums[i] - mean) * (nums[i] - mean)); // subtracting the mean from every item in the provided list and squaring the result
     }
     for i in 0..xs.len() {
         sum = sum + xs[i];
     }
-    let stddev:f64 = sum / (nums.len() -1) as f64;
+    let stddev: f64 = sum / (nums.len() - 1) as f64;
     Some(stddev.sqrt())
 }
 
@@ -103,18 +103,17 @@ pub fn median(nums: &[f64]) -> Option<f64> {
     // https://users.rust-lang.org/t/how-to-sort-a-vec-of-floats/2838/2
     nums.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
-//    unimplemented!("no median yet")
+    //    unimplemented!("no median yet")
     if nums.len() == 0 {
         return None;
     }
     // if the length of the input is even (hard case)
     if nums.len() % 2 == 0 {
-        let j:usize = nums.len()/2;
-        if j < (nums.len() -1 -j) {
+        let j: usize = nums.len() / 2;
+        if j < (nums.len() - 1 - j) {
             return Some(nums[j]);
-        }
-        else {
-            return Some(nums[j-1]);
+        } else {
+            return Some(nums[j - 1]);
         }
     }
     // if the length of the input is odd
@@ -129,13 +128,13 @@ pub fn median(nums: &[f64]) -> Option<f64> {
 }
 
 /*    // if the length of the input is even (hard case)
-    if nums.len() % 2 == 0 {
-        for i in 0..nums.len() {
-            if (i + 1) == ((nums.len() -1) - i) {
-                return Some(((nums[i].abs() + nums[i+1].abs())/2.0));
-            }
+if nums.len() % 2 == 0 {
+    for i in 0..nums.len() {
+        if (i + 1) == ((nums.len() -1) - i) {
+            return Some(((nums[i].abs() + nums[i+1].abs())/2.0));
         }
-    }*/
+    }
+}*/
 
 /// L2 norm (Euclidean norm) of input values. The L2
 /// norm of an empty list is 0.0.
@@ -151,11 +150,11 @@ pub fn median(nums: &[f64]) -> Option<f64> {
 /// assert_eq!(Some(5.0), l2(&[-3.0, 4.0]));
 /// ```
 pub fn l2(nums: &[f64]) -> Option<f64> {
-//    unimplemented!("no l2 yet")
-    let mut sum:f64 = 0.0;
-    let mut v:Vec<f64> = Vec::new();
+    //    unimplemented!("no l2 yet")
+    let mut sum: f64 = 0.0;
+    let mut v: Vec<f64> = Vec::new();
     for i in 0..nums.len() {
-        v.push(nums[i] * nums[i]); 
+        v.push(nums[i] * nums[i]);
     }
     for i in 0..v.len() {
         sum = sum + v[i];
@@ -166,17 +165,28 @@ pub fn l2(nums: &[f64]) -> Option<f64> {
 //unit test for the mean function
 #[test]
 pub fn test_neg() {
-    assert_eq!(Some(4.8), mean(&[-25.8, -18.8, -2.0, 0.0, 1.0, 1.8, 18.0, 25.8, 56.0, -8.0]))
+    assert_eq!(
+        Some(4.8),
+        mean(&[-25.8, -18.8, -2.0, 0.0, 1.0, 1.8, 18.0, 25.8, 56.0, -8.0])
+    )
 }
 //unit test for the stddev function
 #[test]
 pub fn test_large_list() {
-    assert_eq!(Some(50.02867767334641), stddev(&[-25.8, -18.8, -2.0, 0.0, 1.0, 1.8, 18.0, 25.8, 56.0, -8.0, -90.0, 90.9, 100.9]))
+    assert_eq!(
+        Some(50.02867767334641),
+        stddev(&[-25.8, -18.8, -2.0, 0.0, 1.0, 1.8, 18.0, 25.8, 56.0, -8.0, -90.0, 90.9, 100.9])
+    )
 }
 //unit test for the median function
 #[test]
 pub fn test_obscure() {
-    assert_eq!(Some(-8.0), median(&[18.0, -25.8, 56.0, -8.0, -90.0, 90.9, 25.8, 100.9, -56.0, -100.89, -100.9, 100.89]))
+    assert_eq!(
+        Some(-8.0),
+        median(&[
+            18.0, -25.8, 56.0, -8.0, -90.0, 90.9, 25.8, 100.9, -56.0, -100.89, -100.9, 100.89
+        ])
+    )
 }
 //unit test for the l2 function
 #[test]
