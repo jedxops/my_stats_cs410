@@ -26,13 +26,13 @@ pub type StatFn = fn(&[f64]) -> Option<f64>;
 
 pub fn mean(nums: &[f64]) -> Option<f64> {
     //    unimplemented!("no mean yet")
-    if nums.len() == 0 {
+    if nums.is_empty() {
         return Some(0.0);
     }
     let mut sum: f64 = 0.0;
     let len = nums.len() as f64;
     for i in 0..nums.len() {
-        sum = sum + nums[i];
+        sum += nums[i];
     }
     let mean: f64 = sum / len;
     Some(mean)
@@ -63,7 +63,7 @@ pub fn stddev(nums: &[f64]) -> Option<f64> {
     // Step 4 --Divide the previous sum by the total number of items in the input list minus 1
     // Step 5 --Return the result in the form of an option f64 type
     // ***********************************
-    if nums.len() == 0 {
+    if nums.is_empty() {
         return None;
     }
     let result = mean(nums);
@@ -77,7 +77,7 @@ pub fn stddev(nums: &[f64]) -> Option<f64> {
         xs.push((nums[i] - mean) * (nums[i] - mean)); // subtracting the mean from every item in the provided list and squaring the result
     }
     for i in 0..xs.len() {
-        sum = sum + xs[i];
+        sum += xs[i];
     }
     let stddev: f64 = sum / (nums.len() - 1) as f64;
     Some(stddev.sqrt())
@@ -104,7 +104,7 @@ pub fn median(nums: &[f64]) -> Option<f64> {
     nums.sort_by(|a, b| a.partial_cmp(b).unwrap());
 
     //    unimplemented!("no median yet")
-    if nums.len() == 0 {
+    if nums.is_empty() {
         return None;
     }
     // if the length of the input is even (hard case)
@@ -157,7 +157,7 @@ pub fn l2(nums: &[f64]) -> Option<f64> {
         v.push(nums[i] * nums[i]);
     }
     for i in 0..v.len() {
-        sum = sum + v[i];
+        sum += v[i];
     }
     Some(sum.sqrt())
 }
