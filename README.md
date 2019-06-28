@@ -1,5 +1,5 @@
 # Stats
-Copyright (c) 2019 Jeff Austin --jja6@pdx.edu--
+Copyright (c) 2019 Jeff Austin <jja6@pdx.edu>
 
 This program computes a basic statistic. Its input is
 taken from `stdin`, and must consist of floating-point
@@ -33,4 +33,3 @@ Run `cargo test` to do some simple testing.
 This program is licensed under the "MIT License".  Please
 see the file `LICENSE` in the source distribution of this
 software for license terms.
-
