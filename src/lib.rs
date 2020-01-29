@@ -3,6 +3,8 @@
 // Please see the file LICENSE in the source
 // distribution of this software for license terms.
 
+// Jeff Austin wrote the following function implementations.
+
 ///! Functions to compute various statistics on a slice of
 ///! floating-point numbers.
 

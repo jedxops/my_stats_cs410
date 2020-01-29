@@ -16,6 +16,11 @@ text of a floating-point number on stdout.
 The various statistics are implemented in the `stats`
 library crate, which can be used by other programs as well.
 
+The main.rs files and the function signatures in the lib.rs files are 
+Bart Massey's work (Senior Instructor of computer science at Portland
+State University). http://web.cecs.pdx.edu/~bart/  
+Jeff Austin wrote the code for the function implementations.
+
 ## Build and Run
 
 Build this program and library with `cargo build`. You can
